@@ -6,6 +6,7 @@ import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.reviewBoard.entity.ReviewBoard;
 import com.codestates.utils.CustomBeanUtils;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,10 +15,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "users")
 public class User extends Auditable {
     @Id
@@ -33,8 +35,10 @@ public class User extends Auditable {
     @Column(nullable = false, length = 100)
     private String password;
 
-//    @Column(nullable = false)
+    //    @Column(nullable = false)
     private String profileImage;
+    @Column(nullable = false)
+    private String name;
 
     private String birth;
 
@@ -57,9 +61,9 @@ public class User extends Auditable {
         }
     }
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<UserTag> userTag = new ArrayList<>();
-//    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserTag> userTags = new ArrayList<>();
+    //    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
 //    private Group group;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ReviewBoard> reviewBoards = new ArrayList<>();

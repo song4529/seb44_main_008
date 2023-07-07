@@ -10,9 +10,7 @@ import java.util.Collection;
 
 @Component
 public class CustomBeanUtils<T> {
-    public T copyNonNullProperties(T source
-                                    , T destination
-                                    ) {
+    public T copyNonNullProperties(T source, T destination) {
         if (source == null || destination ==null || source.getClass() != destination.getClass()) {
             return null;
         }

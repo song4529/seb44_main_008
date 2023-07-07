@@ -9,12 +9,15 @@ import com.codestates.reviewBoard.service.ReviewBoardService;
 import com.codestates.user.entity.CommentLike;
 import com.codestates.user.entity.ReviewBoardWish;
 import com.codestates.user.entity.User;
+import com.codestates.user.entity.UserTag;
 import com.codestates.user.repository.ReviewBoardWishRepository;
 import com.codestates.user.repository.UserRepository;
 import com.codestates.utils.CustomBeanUtils;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Transactional
 @Service
@@ -44,10 +47,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user) {
+    public User updateUser(User user, List<UserTag> updateUserTags) {
         User findUser = findUser(user.getUserId());
-        User updateUser = findUser.changeUserInfo(user, beanUtils);
-
+        User updateUser = findUser.changeUserInfo(user, beanUtils);//여기에서 List는 변경되지 않음 > UserTag 따로 변경 필요
+        //아마도 태그를 삭제하고 추가하는 것이 아니라 무슨 태그가 선택되어있는지 보내줄 것 같음
+        //태그를 변경하기
+        updateUser.setUserTags(updateUserTags);
         return userRepository.save(updateUser);
     }
 
